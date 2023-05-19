@@ -2,12 +2,19 @@
 <html lang="en">
   <head>
     <!-- <link rel="stylesheet" href="style.css" /> -->
-    <link rel="icon" href="image/lightbub.png" />
+    <link rel="icon" href="image/test.png" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dumbest Light</title>
+    <title>CP-48 Light</title>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    <!-- <script src="app.js" defer></script> -->
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -32,18 +39,17 @@
 
   <style>
     body {
-      font-family: "Inter";
+      font-family: "Comic Sans MS";
       color: rgb(0, 0, 0);
-      background-color: #f7ef8c;
+      background-color: #6b5440;
       /* display: block; */
       align-items: center;
       text-align: center;
       justify-content: center;
     }
     .details {
-      background-color: #ffffff;
-      box-shadow: 10px 10px 10px -2px #969292;
-      border-radius: 20px;
+      background-color: #dbd6d1;
+      border-radius:10px;
       padding: 10px 10px;
       /* max-width: 50rem; */
       min-width: fit-content;
@@ -57,7 +63,7 @@
       margin: auto;
       width: 40rem;
       /* padding: 10px; */
-      border: 3px solid rgb(255, 113, 113);
+      border: 3px solid rgb(50, 41, 37);
       border-radius: 20px;
       padding: 2rem;
       padding-top: 0.5rem;
@@ -88,7 +94,7 @@
     
     .brightness-sensor {
       font-size: 12.5px;
-      border: 3px solid rgb(255, 113, 113);
+      border: 3px solid rgb(50, 41, 37);
       border-radius: 20px;
       padding: 2rem;
       display: inline-block;
@@ -104,6 +110,7 @@
       display: inline-block;
       width: 17rem;
       border: 3px solid rgb(250, 180, 51);
+      border-radius: 15px;
       padding: 1rem;
       text-align: left;
     }
@@ -141,7 +148,7 @@
       border: none;
       font-size: 40px;
       color: rgb(0, 0, 0);
-      background-color: rgb(255, 255, 255);
+      background-color: rgb(219,214, 209);
       padding: 50px 50px;
     }
   </style>
@@ -149,7 +156,7 @@
   <body>
     <div class="details">
       <div class="name">
-        <h1>Dumbest Light</h1>
+        <h1>CP-48 Light</h1>
       </div>
       <div class="about">
         <h2>How to use (manual mode)</h2>
@@ -172,7 +179,7 @@
           <div class="time">
             <h2 id="brightness">brightness</h2>
             <div id="status-icon">
-              <img id="sicon" src="image/sun.png" height="50" width="50" />
+              <img id="sicon" src="image/black-sun-solar-symbol-png-favpng-8rGaFf1YwdaUyYbW2EXYLJF45-removebg-preview.png" height="50" width="80" />
             </div>
           </div>
           <h2 class="brightness-desc">The brightness measured by the sensor</h2>
