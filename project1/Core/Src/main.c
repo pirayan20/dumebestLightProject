@@ -460,7 +460,7 @@ void calculateDistance(void){
 	icFlag = 0;
 	HAL_TIM_IC_Stop_IT(&htim2, TIM_CHANNEL_1);
 
-	//Calculate distance in cm
+	//Calculate distance in cm //
 	if(edge2Time > edge1Time)
 	{
 		distance = ((edge2Time - edge1Time) + 0.0f)*speedOfSound;
