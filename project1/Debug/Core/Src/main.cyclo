@@ -1,0 +1,13 @@
+main.c:87:6:HAL_UART_RxCpltCallback	1
+main.c:98:5:main	1
+main.c:154:6:SystemClock_Config	3
+main.c:201:13:MX_TIM2_Init	6
+main.c:259:13:MX_TIM4_Init	4
+main.c:304:13:MX_USART1_UART_Init	2
+main.c:337:13:MX_USART2_UART_Init	2
+main.c:370:13:MX_GPIO_Init	1
+main.c:413:6:usDelay	3
+main.c:423:6:HAL_TIM_IC_CaptureCallback	3
+main.c:441:6:calculateDistance	5
+main.c:477:6:checkState	8
+main.c:517:6:Error_Handler	1
