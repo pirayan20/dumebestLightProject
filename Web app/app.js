@@ -1,6 +1,8 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
-import { getDatabase,ref,onValue,update,get,set } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js";
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
+
 const firebaseConfig = {
+  // Your Firebase configuration
   apiKey: "AIzaSyBRHNNHGjHQq_oaAcxH8R4IgcmK-6uAXsk",
   authDomain: "dumbestlightproject.firebaseapp.com",
   projectId: "dumbestlightproject",
@@ -8,6 +10,19 @@ const firebaseConfig = {
   messagingSenderId: "691378141223",
   appId: "1:691378141223:web:0caf20e1f45ff712b1b602"
 };
+
+// const app = initializeApp(firebaseConfig);
+// const database = getDatabase(app);
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+// import { getDatabase,ref,onValue,update,get,set } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js";
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBRHNNHGjHQq_oaAcxH8R4IgcmK-6uAXsk",
+//   authDomain: "dumbestlightproject.firebaseapp.com",
+//   projectId: "dumbestlightproject",
+//   storageBucket: "dumbestlightproject.appspot.com",
+//   messagingSenderId: "691378141223",
+//   appId: "1:691378141223:web:0caf20e1f45ff712b1b602"
+// };
 
 var database = firebase.database();
 const app = initializeApp(firebaseConfig);
