@@ -423,7 +423,7 @@ void usDelay(uint32_t uSec)
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 
-	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+	//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);////////////////
 
 		if(captureIdx == 0) //Fisrt edge
 		{
@@ -468,8 +468,10 @@ void calculateDistance(void){
 	diffDistance = distancePrev-distance;
 	distancePrev = distance;
 	// Q's code
+	sprintf(uartBuf, "diffDistance (cm)  = %d\r\n", (int)diffDistance);
+	HAL_UART_Transmit(&huart2, (uint8_t *)uartBuf, strlen(uartBuf), 100);
 
-	if (distance <= 8){
+	if (diffDistance > 5){
 		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
 		HAL_Delay(200);
 	}
@@ -478,26 +480,35 @@ void calculateDistance(void){
 void checkState(void){
 	if(strcmp(state,state0) == 0){
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10,SET);
+		//HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);//
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, SET);
 
 	}
 	else if(strcmp(state,state1) == 0){
 
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10,SET);
+		//HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);//
+
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, SET);
 	}
 	else if(strcmp(state,state2)==0){
 		if(detect){
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10,RESET);
+			//HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);//
+
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12,RESET);
 		}
 		else{
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10,SET);
+			//HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);//
+
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12,SET);
 		}
 		if(diffDistance > 20){
 			detect = 1;
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10,RESET);
+			//HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);//
+
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12,RESET);
 		}else if(diffDistance < -20){
 			detect = 0;
@@ -505,6 +516,8 @@ void checkState(void){
 	}
 	else if(strcmp(state,state3) == 0){
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10,RESET);
+		//HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);//
+
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12,RESET);
 	}
 }
