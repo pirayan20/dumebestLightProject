@@ -422,7 +422,7 @@ void usDelay(uint32_t uSec)
 }
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-	//win code
+
 	//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);////////////////
 
 		if(captureIdx == 0) //Fisrt edge
@@ -468,6 +468,8 @@ void calculateDistance(void){
 	diffDistance = distancePrev-distance;
 	distancePrev = distance;
 	// Q's code
+	sprintf(uartBuf, "diffDistance (cm)  = %d\r\n", (int)diffDistance);
+	HAL_UART_Transmit(&huart2, (uint8_t *)uartBuf, strlen(uartBuf), 100);
 
 	if (diffDistance > 5){
 		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
