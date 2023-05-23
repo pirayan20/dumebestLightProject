@@ -1,132 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- <link rel="stylesheet" href="style.css" /> -->
-    <link rel="icon" href="image/test.png" />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hey Light</title>
-    <script type="module" src="app.js"></script>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="image/test.png" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey Light</title>
+  <script type="module" src="app.js"></script>
+</head>
 
-  </head>
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #fafafa;
+    padding: 20px;
+  }
+  
+  .details {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
 
-  <style>
-    body {
-      font-family: "Comic Sans MS";
-      color: rgb(0, 0, 0);
-      background-color: #6b5440;
-      /* display: block; */
-      align-items: center;
-      text-align: center;
-      justify-content: center;
+  .name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .about {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  #list {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .brightness-sensor {
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .time {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .bbutton {
+    display: flex;
+    justify-content: center;
+  }
+
+  #on-off {
+    cursor: pointer;
+    border: none;
+    font-size: 40px;
+    color: #222;
+    background-color: #eaeaea;
+    padding: 20px;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  #on-off:hover {
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .details, .about, .brightness-sensor {
+      padding: 15px;
     }
-    .details {
-      background-color: #dbd6d1;
-      border-radius:10px;
-      padding: 10px 10px;
-      /* max-width: 50rem; */
-      min-width: fit-content;
-      max-width: fit-content;
-      margin: auto;
-      align-items: center;
-      text-align: center;
-      justify-content: center;
-    }
-    .about {
-      margin: auto;
-      width: 40rem;
-      /* padding: 10px; */
-      border: 3px solid rgb(50, 41, 37);
-      border-radius: 20px;
-      padding: 2rem;
-      padding-top: 0.5rem;
-    }
+
     .name {
-      text-align: center;
-      font-size: 30px;
-    }
-    /* .about {
-      border: 3px solid rgb(255, 113, 113);
-      padding: 2rem;
-      padding-top: 0.5rem;
-    } */
-    #list {
-      font-size: 20px;
-      text-align: left;
-    }
-    
-    .main-func {
-      display: inline-block;
-      /* min-width: fit-content;
-      min-height: fit-content; */
-      margin-top: 4rem;
-      align-items: center;
-      text-align: center;
-      justify-content: center;
-    }
-    
-    .brightness-sensor {
-      font-size: 12.5px;
-      border: 3px solid rgb(50, 41, 37);
-      border-radius: 20px;
-      padding: 2rem;
-      display: inline-block;
-      justify-content: center;
-      width: 20rem;
-      /* margin-top: 10rem; */
-      margin-left: 4rem;
-      text-align: center;
-      align-items: center;
-      vertical-align: top;
-    }
-    .time {
-      display: inline-block;
-      width: 17rem;
-      border: 3px solid rgb(250, 180, 51);
-      border-radius: 15px;
-      padding: 1rem;
-      text-align: left;
-    }
-    #brightness {
-      display: inline-block;
-      padding-left: 4.5rem;
-    }
-    #status-icon {
-      position: absolute;
-      margin: 0;
-      padding-left: 1rem;
-      display: inline-block;
-    }
-    .motion {
-      border: 3px solid rgb(250, 180, 51);
-      padding: 1rem;
+      font-size: 2rem;
     }
 
-    .bbutton {
-      display: inline-block;
-      margin-left: 4rem;
-      vertical-align: top;
+    #list, .brightness-sensor {
+      font-size: 1rem;
     }
-
-    #on {
-      cursor: pointer;
-      border: none;
-      font-size: 40px;
-      color: rgb(0, 0, 0);
-      background-color: rgb(255, 230, 2);
-      padding: 50px 50px;
-    }
-    #on-off {
-      cursor: pointer;
-      border: none;
-      font-size: 40px;
-      color: rgb(0, 0, 0);
-      background-color: rgb(219,214, 209);
-      padding: 50px 50px;
-    }
-  </style>
-
+  }
+</style>
   <body>
     <div class="details">
       <div class="name">
