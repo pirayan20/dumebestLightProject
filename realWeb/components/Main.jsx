@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import {AiFillSetting} from 'react-icons/ai'
-import {BsFillLightbulbFill } from 'react-icons/bs';
 import ToggleButton from './ToggleButton';
 import {getDatabase, ref,set, onValue} from 'firebase/database'
 import firebase from '../lib/firebase'

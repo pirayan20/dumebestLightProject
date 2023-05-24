@@ -61,7 +61,7 @@ const Navbar = () => {
               <Link href='/'>Home</Link>
             </li>
             <li className='ml-10 text-sm uppercase hover:border-b'>
-              <Link href='/#howto'>How to</Link>
+              <Link href='/#howto'>Control</Link>
             </li>
             <li className='ml-10 text-sm uppercase hover:border-b'>
               <Link href='/#about'>About</Link>
@@ -70,7 +70,7 @@ const Navbar = () => {
               <Link href='/#skills'>Stack</Link>
             </li>
             <li className='ml-10 text-sm uppercase hover:border-b'>
-              <Link href='/resume'>Resume</Link>
+              <Link href='/resume'>Role</Link>
             </li>
           </ul>
           {/* Hamburger Icon */}
@@ -115,7 +115,7 @@ const Navbar = () => {
               </Link>
               <Link href='/#howto'>
                 <li onClick={() => setNav(false)} className='py-4 text-sm'>
-                  HowTo
+                  Control
                 </li>
               </Link>
               <Link href='/#about'>
@@ -130,7 +130,7 @@ const Navbar = () => {
               </Link>
               <Link href='/resume'>
                 <li onClick={() => setNav(false)} className='py-4 text-sm'>
-                  Resume
+                  Role
                 </li>
               </Link>
             </ul>
