@@ -8,6 +8,19 @@
 DHT dht(DHTPIN, DHTTYPE);  
 
 
+#include <Wire.h>//com
+#include <SoftwareSerial.h>
+SoftwareSerial mySerial(4, 5);
+#include <Arduino.h>
+#if defined(ESP32)
+#include <WiFi.h>
+#elif defined(ESP8266)
+#include <ESP8266WiFi.h>
+#endif
+#include <addons/TokenHelper.h>
+#include <addons/RTDBHelper.h>
+
+
 FirebaseData fbdo;
 
 SFE_TSL2561 light;
@@ -55,7 +68,14 @@ void setup() {
   light.setTiming(gain, time, ms);
   light.setPowerUp();
 
-  dht.begin();         
+  dht.begin();      
+
+  //Communication
+  mySerial.begin(115200);
+
+  Serial.println("UART Start");
+
+  lastUART = millis();   
 
 }
 
@@ -73,7 +93,7 @@ void loop() {
     Serial.print(" lux: ");
     Serial.println(lux);
     // Write an Float number on the database path test/brightness
-    if (Firebase.RTDB.setDouble(&fbdo, "/test/brightness", roundf(lux * 100) / 100)) {
+    if (Firebase.RTDB.setDouble(&fbdo, "/test/brightness", lux )) {
       Serial.println("PASSED");
       Serial.println("PATH: " + fbdo.dataPath());
       Serial.println("TYPE: " + fbdo.dataType());
@@ -103,7 +123,7 @@ void loop() {
   String fireTemp = String(t) + String("°C");                  //Temperature integer to string conversion
 
        //setup path to send Temperature readings
-      if (Firebase.RTDB.setDouble(&fbdo, "/test/temperature", roundf(t * 100) / 100)) {
+      if (Firebase.RTDB.setDouble(&fbdo, "/test/temperature", t )) {
       Serial.println("PASSED");
       Serial.println("PATH: " + fbdo.dataPath());
       Serial.println("TYPE: " + fbdo.dataType());
@@ -113,7 +133,27 @@ void loop() {
       Serial.println("REASON: " + fbdo.errorReason());
     }
 
+    
+  //com
+  if (millis() - lastUART > 400)
+    {
+      checkState();
+      
+      mySerial.print(state);
+      Serial.println(state);
+      Serial.println("Commu ok");
 
+      if (Firebase.RTDB.setString(&fbdo, "/test/State", state)) {
+        Serial.println("PASSED");
+        Serial.println("PATH: " + fbdo.dataPath());
+        Serial.println("TYPE: " + fbdo.dataType());
+      }
+      else {
+        Serial.println("FAILED");
+        Serial.println("REASON: " + fbdo.errorReason());
+      }
+      lastUART = millis();
+    }
   delay(1000);
 }
 
