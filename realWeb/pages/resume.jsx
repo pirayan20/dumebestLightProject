@@ -20,10 +20,10 @@ const resume = () => {
 
         {/* -------------------------eiampoo-------------------------------------- */}
         <div className='bg-[#d0d4d6] my-4 p-4 w-full flex justify-between items-center'>
-          <h2 className='text-center'>Eiampoo</h2>
+          <h2 className='text-center'>Eiampoo Vongpradit</h2>
           <div className='flex'>
             <a
-              href='https://github.com/pirayan20'
+              href='https://github.com/nattoshi'
               target='_blank'
               rel='noreferrer'
             >
@@ -123,7 +123,7 @@ const resume = () => {
 
         {/* -------------------------tanawin-------------------------------------- */}
         <div className='bg-[#d0d4d6] my-4 p-4 w-full flex justify-between items-center'>
-          <h2 className='text-center'>Tanawin Visa</h2>
+          <h2 className='text-center'>Tanawin Visanuyothin</h2>
           <div className='flex'>
             <a
               href='https://github.com/tanawinvisa'
@@ -173,7 +173,7 @@ const resume = () => {
           <h2 className='text-center'>Wish Marukapitak</h2>
           <div className='flex'>
             <a
-              href='https://github.com/pirayan20'
+              href='https://github.com/wish-eq'
               target='_blank'
               rel='noreferrer'
             >

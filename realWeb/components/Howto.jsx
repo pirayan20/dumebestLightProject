@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {getDatabase, ref, onValue} from 'firebase/database'
+import {getDatabase, ref, set, onValue} from 'firebase/database'
 import firebase from '../lib/firebase'
+import ToggleButton from './ToggleButton';
 
 const Howto = () => {
   const [brightnessData, setBrightnessData] = useState(null);
@@ -49,6 +50,22 @@ const Howto = () => {
     };
   }, []); 
 
+  const handleButtonToggle = () => {
+    const newButtonState = !buttonStateData;
+  
+    // Update the state variable
+    setButtonStateData(newButtonState);
+  
+    // Update the Firebase data
+    const database = getDatabase();
+    const buttonStateRef = ref(database, '/test/buttonState');
+    set(buttonStateRef, newButtonState ? 1 : 0);
+  };
+
+  const formattedBrightnessData = brightnessData !== null ? brightnessData.toFixed(2) : "N/A";
+  const formattedTempData = temperatureData !== null ? temperatureData.toFixed(2) : "N/A";
+  const formatteButtonState = buttonStateData !== null ? buttonStateData.toFixed(2) : "N/A";
+
   return (
     <div id='howto' className='w-full h-screen text-center'>
       <div className='max-w-[70] w-full h-full mx-auto p-2 flex justify-center items-center'>
@@ -69,20 +86,19 @@ const Howto = () => {
           </div>
 
           {/* Render data from Firebase */}
+          <div className='flex items-center justify-between max-w-[50px] m-auto py-4'>
+            <ToggleButton buttonState={buttonStateData} handleButtonToggle={handleButtonToggle} />
+          </div>
           <div className='flex items-center justify-between max-w-[500px] m-auto py-4'>
-            {brightnessData && (
-              <div>
-                <h4>Brightness Data:</h4>
-                <p>{brightnessData.toFixed(2)}</p>
-              </div>
-            )}
+            <div>
+              <h4>Brightness Data:</h4>
+              <p>{formattedBrightnessData}</p>
+            </div>
 
-            {temperatureData && (
-              <div>
-                <h4>Temperature Data:</h4>
-                <p>{temperatureData.toFixed(2)}</p>
-              </div>
-            )}
+            <div>
+              <h4>Temperature Data:</h4>
+              <p>{formattedTempData}</p>
+            </div>
 
             {stateData && (
               <div>
@@ -91,12 +107,11 @@ const Howto = () => {
               </div>
             )}
 
-            {buttonStateData && (
-              <div>
-                <h4>Button State Data:</h4>
-                <p>{buttonStateData}</p>
-              </div>
-            )}    
+            <div>
+              <h4>Button State Data:</h4>
+              <p>{formatteButtonState}</p>
+            </div>
+
           </div>
         </div>
       </div>

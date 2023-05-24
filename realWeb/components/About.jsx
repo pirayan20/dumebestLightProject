@@ -3,8 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AboutImg from '../public/assets/about.jpg';
 
-
-
 const About = () => {
   return (
     <div id='about' className='w-full md:h-screen p-2 flex items-center py-16'>
