@@ -3,9 +3,11 @@
 #include <ESP8266WiFi.h>
 #include <SparkFunTSL2561.h>
 #include <DHT.h>
-#define DHTPIN D4                                            // Digital pin connected to DHT11
+#define DHTPIN 0                                         // Digital pin connected to DHT11
 #define DHTTYPE DHT11                                        // Initialize dht type as DHT 11
-DHT dht(DHTPIN, DHTTYPE);  
+DHT dht(DHTPIN, DHTTYPE);
+#define SDA_PIN 14 // D5
+#define SCL_PIN 12 // D6  
 
 
 #include <Wire.h>//com
@@ -43,6 +45,7 @@ void checkState();
 FirebaseData firebaseData;
 
 void setup() {
+  Wire.begin(SDA_PIN, SCL_PIN);  // Initialize I2C communication on D5 (SDA) and D6 (SCL)
   Serial.begin(9600);
   delay(1000);
 
