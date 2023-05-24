@@ -1,44 +1,16 @@
-#include <SparkFunTSL2561.h>
-#include <Wire.h>
-#include <SoftwareSerial.h>
-SoftwareSerial mySerial(4, 5);
-#include <Arduino.h>
-//#include <FirebaseArduino.h>
-#if defined(ESP32)
-#include <WiFi.h>
-#elif defined(ESP8266)
+
+#include <FirebaseESP8266.h>
 #include <ESP8266WiFi.h>
-#endif
-#include <Firebase_ESP_Client.h>
-
-#include <addons/TokenHelper.h>
-#include <addons/RTDBHelper.h>
-
-const char* ssid = "Win";
-const char* password = "winwin123";
+#include <SparkFunTSL2561.h>
+#include <DHT.h>
+#define DHTPIN D4                                            // Digital pin connected to DHT11
+#define DHTTYPE DHT11                                        // Initialize dht type as DHT 11
+DHT dht(DHTPIN, DHTTYPE);  
 
 
-#define API_KEY "AIzaSyBRHNNHGjHQq_oaAcxH8R4IgcmK-6uAXsk"
-#define DATABASE_URL "dumbestlightproject-default-rtdb.asia-southeast1.firebasedatabase.app"
-//#define FIREBASE_HOST "smartest-light.firebaseapp.com"
-//#define FIREBASE_AUTH "Ov3ghk8E1TcepwCTwBTKVnbz3Xl1"
-/* 4. Define the user Email and password that alreadey registerd or added in your project */
-#define USER_EMAIL "tanawinvisa@gmail.com"
-#define USER_PASSWORD "290146Win"
-
-// Define Firebase Data object
 FirebaseData fbdo;
 
-FirebaseAuth auth;
-FirebaseConfig config;
-
 SFE_TSL2561 light;
-
-// Global variables:
-unsigned long sendDataPrevMillis = 0;
-int count = 0;
-bool signupOK = false;
-
 long lastUART = 0;
 boolean gain;     
 unsigned int ms;  
@@ -48,77 +20,49 @@ String state = "00";
 int buttonState=0;
 void checkState();
 
-void setup()
-{
-  // Initialize the Serial port:
 
+
+#define FIREBASE_HOST "dumbestlightproject-default-rtdb.asia-southeast1.firebasedatabase.app" // Replace with your Firebase Project URL
+#define FIREBASE_AUTH "AIzaSyBRHNNHGjHQq_oaAcxH8R4IgcmK-6uAXsk" // Replace with your Firebase secret
+#define WIFI_SSID "Win" // Replace with your WiFi SSID
+#define WIFI_PASSWORD "winwin123" // Replace with your WiFi password
+
+FirebaseData firebaseData;
+
+void setup() {
   Serial.begin(9600);
-  // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  // Print local IP address and start web server
-  Serial.println("");
-  Serial.println("WiFi connected.");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  //  server.begin();
-  Serial.println();
-  config.api_key = API_KEY;
-  config.database_url = DATABASE_URL;
-
-  // Assign the user sign in credentials
-  auth.user.email = USER_EMAIL;
-  auth.user.password = USER_PASSWORD;
-
-  /* Sign up */
-    if (Firebase.signUp(&config, &auth, "", "")) {
-      Serial.println("ok");
-      signupOK = true;
-    }
-    else {
-      Serial.printf("%s\n", config.signer.signupError.message.c_str());
-    }
-
-    Firebase.begin(&config, &auth);
+  delay(1000);
 
   Firebase.setDoubleDigits(3);
 
-  Serial.println("TSL2561 example sketch");
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Connecting to ");
+  Serial.print(WIFI_SSID);
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    Serial.print("+");
+    Serial.println();
+    delay(300);
+  }
+  Serial.println();
 
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  Firebase.reconnectWiFi(true);
+   
   light.begin();
   gain = 0;
   unsigned char time = 2;
   light.setTiming(gain, time, ms);
   light.setPowerUp();
-  //Communication
-  mySerial.begin(115200);
 
-  Serial.println("UART Start");
+  dht.begin();         
 
-  lastUART = millis();
 }
 
-void loop()
-{
-  delay(ms);
-
+void loop() {
+  // Firebase.setString(firebaseData, "/message", "Hello from ESP826612345");
   unsigned int data0, data1;
-  bool a,b,c,d;
-  a = Firebase.ready();
-  Serial.println(a);
-  b = signupOK = 1;
-  Serial.println(b);
-  c = (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0);
-  Serial.println(c);
-  
-  if (Firebase.ready() && signupOK) {
-    sendDataPrevMillis = millis();
-    if (light.getData(data0, data1))
+  if (light.getData(data0, data1))
     {
       // Resulting lux value
       boolean good;  // True if neither sensor is saturated
@@ -129,37 +73,50 @@ void loop()
     Serial.print(" lux: ");
     Serial.println(lux);
     // Write an Float number on the database path test/brightness
-    if (Firebase.RTDB.setDouble(&fbdo, "test/brightness", lux)) {
-//      Serial.println("PASSED");
-//      Serial.println("PATH: " + fbdo.dataPath());
-//      Serial.println("TYPE: " + fbdo.dataType());
+    if (Firebase.RTDB.setDouble(&fbdo, "/test/brightness", roundf(lux * 100) / 100)) {
+      Serial.println("PASSED");
+      Serial.println("PATH: " + fbdo.dataPath());
+      Serial.println("TYPE: " + fbdo.dataType());
     }
     else {
-//      Serial.println("FAILED");
-//      Serial.println("REASON: " + fbdo.errorReason());
+      Serial.println("FAILED");
+      Serial.println("REASON: " + fbdo.errorReason());
     }
 
-    if (millis() - lastUART > 400)
-    {
-      checkState();
-      
-      mySerial.print(state);
-      Serial.println(state);
-      Serial.println("Commu ok");
 
-      if (Firebase.RTDB.setString(&fbdo, "test/State", state)) {
-//        Serial.println("PASSED");
-//        Serial.println("PATH: " + fbdo.dataPath());
-//        Serial.println("TYPE: " + fbdo.dataType());
-      }
-      else {
-//        Serial.println("FAILED");
-//        Serial.println("REASON: " + fbdo.errorReason());
-      }
-      lastUART = millis();
+
+  float h = dht.readHumidity();                                 // Read Humidity
+  float t = dht.readTemperature();                              // Read temperature
+  
+  if (isnan(h) || isnan(t))                                     // Checking sensor working
+  {                                   
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return;
+  } 
+  Serial.print("Humidity: ");  
+  Serial.print(h);
+  String fireHumid = String(h) + String("%");                   //Humidity integer to string conversion
+  
+  Serial.print("%  Temperature: ");  
+  Serial.print(t);  
+  Serial.println("°C ");
+  String fireTemp = String(t) + String("°C");                  //Temperature integer to string conversion
+
+       //setup path to send Temperature readings
+      if (Firebase.RTDB.setDouble(&fbdo, "/test/temperature", roundf(t * 100) / 100)) {
+      Serial.println("PASSED");
+      Serial.println("PATH: " + fbdo.dataPath());
+      Serial.println("TYPE: " + fbdo.dataType());
     }
-  }
+    else {
+      Serial.println("FAILED");
+      Serial.println("REASON: " + fbdo.errorReason());
+    }
+
+
+  delay(1000);
 }
+
 
 void checkState() {
 
