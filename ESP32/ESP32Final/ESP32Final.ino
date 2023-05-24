@@ -14,17 +14,17 @@ SoftwareSerial mySerial(4, 5);
 #include <addons/TokenHelper.h>
 #include <addons/RTDBHelper.h>
 
-const char* ssid = "jade_Internet";
-const char* password = "Jafe1846";
+const char* ssid = "Win";
+const char* password = "winwin123";
 
 
-#define API_KEY "AIzaSyDU3ZLPqguNfSx2TBqNUsPZnsruVY_H3tQ"
-#define DATABASE_URL "smartest-light-default-rtdb.firebaseio.com"
+#define API_KEY "AIzaSyBRHNNHGjHQq_oaAcxH8R4IgcmK-6uAXsk"
+#define DATABASE_URL "dumbestlightproject-default-rtdb.asia-southeast1.firebasedatabase.app"
 //#define FIREBASE_HOST "smartest-light.firebaseapp.com"
 //#define FIREBASE_AUTH "Ov3ghk8E1TcepwCTwBTKVnbz3Xl1"
 /* 4. Define the user Email and password that alreadey registerd or added in your project */
-#define USER_EMAIL "akkharawatbct@gmail.com"
-#define USER_PASSWORD "earth77"
+#define USER_EMAIL "tanawinvisa@gmail.com"
+#define USER_PASSWORD "290146Win"
 
 // Define Firebase Data object
 FirebaseData fbdo;
