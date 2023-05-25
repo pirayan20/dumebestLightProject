@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {getDatabase, ref, set, onValue} from 'firebase/database'
 import firebase from '../lib/firebase'
+import {BsSunFill, BsMoonFill} from 'react-icons/bs'
+import {MdMotionPhotosOff, MdMotionPhotosOn} from 'react-icons/md'
 import ToggleButton from './ToggleButton';
 
 const Howto = () => {
@@ -8,6 +10,7 @@ const Howto = () => {
   const [temperatureData, setTemperatureData] = useState(null);
   const [stateData, setStateData] = useState(null);
   const [buttonStateData, setButtonStateData] = useState(null);
+  const [humidData, setHumidData] = useState(null);
 
 
   useEffect(() => {
@@ -41,12 +44,20 @@ const Howto = () => {
       setButtonStateData(data);
     });
 
+    // Fetch data from the "/test/humid" path
+    const humidRef = ref(database,"/test/humid") 
+    const humidUnsubscribe = onValue(humidRef, (snapshot) => {
+      const data = snapshot.val();
+      setHumidData(data);
+    });
+
     // Clean up the listeners on unmount
     return () => {
       brightnessUnsubscribe();
       temperatureUnsubscribe();
       stateUnsubscribe();
       buttonStateUnsubscribe();
+      humidUnsubscribe();
     };
   }, []); 
 
@@ -64,7 +75,6 @@ const Howto = () => {
 
   const formattedBrightnessData = brightnessData !== null ? brightnessData.toFixed(2) : "N/A";
   const formattedTempData = temperatureData !== null ? temperatureData.toFixed(2) : "N/A";
-  const formatteButtonState = buttonStateData !== null ? buttonStateData.toFixed(2) : "N/A";
 
   return (
     <div id='howto' className='w-full h-screen text-center'>
@@ -83,33 +93,45 @@ const Howto = () => {
             </li>
             <li>If it&#39;s not bright, you can turn off the lights.</li>
             <li>If you turn on the light when it&#39;s bright, the light will not turn on until it&#39;s dark.</li>
+            <li>And when it&#39;s dark, the light will turn on according to the motion sensor</li>
           </div>
 
           {/* Render data from Firebase */}
-          <div className='flex items-center justify-between max-w-[50px] m-auto py-4'>
+          <div className='flex items-center justify-between max-w-[250px] m-auto py-4'>
+
             <ToggleButton buttonState={buttonStateData} handleButtonToggle={handleButtonToggle} />
-          </div>
-          <div className='flex items-center justify-between max-w-[500px] m-auto py-4'>
-            <div>
-              <h4>Brightness Data:</h4>
-              <p>{formattedBrightnessData}</p>
+
+            <div
+              className={`rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300 ${
+                stateData == 10 ? 'bg-blue-500' : 'bg-[#fffff]'
+              }`}
+            >
+            {stateData == 10 ? (
+              <MdMotionPhotosOn />
+            ) : (
+              <MdMotionPhotosOff/>
+            )}
             </div>
 
+            <div className='rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300'>
+            {formattedBrightnessData > 25 ? (
+              <BsSunFill className='text-yellow-500' />
+            ) : (
+              <BsMoonFill className='text-blue-500' />
+            )}
+            </div>
+
+          </div>
+
+          <div className='flex items-center justify-between max-w-[250px] m-auto py-4'>
             <div>
-              <h4>Temperature Data:</h4>
+              <h4>Temperature (C)</h4>
               <p>{formattedTempData}</p>
             </div>
 
-            {stateData && (
-              <div>
-                <h4>State Data:</h4>
-                <p>{stateData}</p>
-              </div>
-            )}
-
             <div>
-              <h4>Button State Data:</h4>
-              <p>{formatteButtonState}</p>
+              <h4>Humidity:</h4>
+              <p>{humidData}</p>
             </div>
 
           </div>

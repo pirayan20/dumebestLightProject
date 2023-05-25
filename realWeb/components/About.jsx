@@ -1,26 +1,29 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import AboutImg from '../public/assets/about.jpg';
+import AboutImg from '../public/assets/groupPhoto.jpg';
 
 const About = () => {
   return (
-    <div id='about' className='w-full md:h-screen p-2 flex items-center py-16'>
-      <div className='max-w-[1240px] w-50vw m-auto md:grid grid-cols-3 gap-8'>
+    <div id='about' className='w-screen md:h-screen p-2 flex items-center py-16'>
+      <div className='max-w-[1240px] w-4/5 m-auto md:grid grid-cols-3 gap-8'>
         <div className='col-span-2'>
           <p className='uppercase text-xl tracking-widest text-[#c9c018]'>
             About
           </p>
           <h2 className='py-4'>Who are We</h2>
           <p className='py-2 text-gray-600'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus ipsum reiciendis officia earum. Tempore cumque earum voluptatibus, doloribus, explicabo quibusdam saepe reiciendis architecto sequi commodi facilis excepturi cum ex ab vel consectetur deleniti nesciunt modi dolorum ad. Sapiente, ea molestias! Temporibus quaerat aperiam blanditiis voluptas nam culpa quisquam assumenda laudantium?
+            We are a group of Computer Engineering student at Chulalongkorn university in Thailand, 
+            in our sophomore year, this is our final project in the Embedded system laboratory class.
           </p>
           <p className='py-2 text-gray-600'>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia hic alias iure repellat eveniet est voluptatibus aut velit veritatis consequatur delectus, repellendus totam commodi, laborum aliquid laudantium animi voluptas aperiam.
+            This is a very breakthrough achivement for all of us, this is the work that we&#39;re not familiar with 
+            and it&#39;s very satisfying when the application can work flawlessly. The thing is we can use this 
+            knowledge for the future and use it to make some project of our own in the future as well!.
           </p>
           <Link href='/resume'>
             <p className='py-2 text-gray-600 underline cursor-pointer'>
-              Check out our resume
+              Check out our Role
             </p>
           </Link>
           <Link href = 'https://github.com/pirayan20/dumebestLightProject'>

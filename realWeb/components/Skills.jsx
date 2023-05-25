@@ -16,8 +16,8 @@ import { HiOutlineChevronDoubleUp } from 'react-icons/hi';
 
 const Skills = () => {
   return (
-    <div id='skills' className='w-full lg:h-screen p-2'>
-      <div className='max-w-[1240px] mx-auto flex flex-col justify-center h-full'>
+    <div id='skills' className='w-screen lg:h-screen p-2'>
+      <div className='max-w-[1240px] w-4/5 mx-auto flex flex-col justify-center h-full'>
         <p className='text-xl tracking-widest uppercase text-[#c9c018]'>
           Stack
         </p>
