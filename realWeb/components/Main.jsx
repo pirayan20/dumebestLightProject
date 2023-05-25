@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
 import {AiFillSetting} from 'react-icons/ai'
-import ToggleParent from './ToggleParent'
 
 const Main = () => {
 

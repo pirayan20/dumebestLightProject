@@ -20,7 +20,6 @@ const ToggleParent = () => {
   return (
     <div>
       <ToggleButton buttonState={buttonState} handleButtonToggle={handleButtonToggle} />
-      {/* Use the ToggleButton in other places */}
     </div>
   );
 };

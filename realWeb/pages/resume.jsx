@@ -20,7 +20,7 @@ const resume = () => {
 
         {/* -------------------------eiampoo-------------------------------------- */}
         <div className='bg-[#d0d4d6] my-4 p-4 w-full flex justify-between items-center'>
-          <h2 className='text-center'>Eiampoo Wongpradit</h2>
+          <h2 className='text-center'>Eiampoo Vongpradit</h2>
           <div className='flex'>
             <a
               href='https://github.com/nattoshi'
