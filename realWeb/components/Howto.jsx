@@ -3,7 +3,7 @@ import {getDatabase, ref, set, onValue} from 'firebase/database'
 import firebase from '../lib/firebase'
 import {BsSunFill, BsMoonFill} from 'react-icons/bs'
 import {MdMotionPhotosOff, MdMotionPhotosOn} from 'react-icons/md'
-import ToggleButton from './ToggleButton';
+import ToggleParent from './ToggleParent'
 
 const Howto = () => {
   const [brightnessData, setBrightnessData] = useState(null);
@@ -61,18 +61,6 @@ const Howto = () => {
     };
   }, []); 
 
-  const handleButtonToggle = () => {
-    const newButtonState = !buttonStateData;
-  
-    // Update the state variable
-    setButtonStateData(newButtonState);
-  
-    // Update the Firebase data
-    const database = getDatabase();
-    const buttonStateRef = ref(database, '/test/buttonState');
-    set(buttonStateRef, newButtonState ? 1 : 0);
-  };
-
   const formattedBrightnessData = brightnessData !== null ? brightnessData.toFixed(2) : "N/A";
   const formattedTempData = temperatureData !== null ? temperatureData.toFixed(2) : "N/A";
 
@@ -99,7 +87,7 @@ const Howto = () => {
           {/* Render data from Firebase */}
           <div className='flex items-center justify-between max-w-[250px] m-auto py-4'>
 
-            <ToggleButton buttonState={buttonStateData} handleButtonToggle={handleButtonToggle} />
+            <ToggleParent />
 
             <div
               className={`rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300 ${
@@ -130,7 +118,7 @@ const Howto = () => {
             </div>
 
             <div>
-              <h4>Humidity:</h4>
+              <h4>Humidity (%)</h4>
               <p>{humidData}</p>
             </div>
 

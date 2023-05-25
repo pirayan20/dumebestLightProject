@@ -4,7 +4,6 @@ import Main from '../components/Main'
 import Skills from '../components/Skills'
 import Howto from '../components/Howto'
 
-
 export default function Home() {
   return (
     <div>
@@ -15,7 +14,6 @@ export default function Home() {
     <Howto />
     <About />
     <Skills />
-    {/* <Contact /> */}
     </div>
   )
 }

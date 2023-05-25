@@ -1,24 +1,9 @@
 import Link from 'next/link';
-import React, { useState} from 'react';
+import React from 'react';
 import {AiFillSetting} from 'react-icons/ai'
-import ToggleButton from './ToggleButton';
-import {getDatabase, ref,set} from 'firebase/database'
+import ToggleParent from './ToggleParent'
 
 const Main = () => {
-
-  const [buttonState, setButtonState] = useState(null);
-
-  const handleButtonToggle = () => {
-    const newButtonState = !buttonState;
-  
-    // Update the state variable
-    setButtonState(newButtonState);
-  
-    // Update the Firebase data
-    const database = getDatabase();
-    const buttonStateRef = ref(database, '/test/buttonState');
-    set(buttonStateRef, newButtonState ? 1 : 0);
-  };
 
   return (
     <div id='home' className='w-screen h-screen text-center'>
@@ -34,8 +19,7 @@ const Main = () => {
            we&#39;re focused on building a light that will make some people lives easier and 
            make some profit of our own if that&#39;s possible
           </p>
-          <div className='flex items-center justify-between max-w-[150px] m-auto py-4'>
-            <ToggleButton buttonState={buttonState} handleButtonToggle={handleButtonToggle} />
+          <div className='flex items-center justify-between max-w-[50px] m-auto py-4'>
             <Link href='#howto'>
               <div className='rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300'>
                 <AiFillSetting />
