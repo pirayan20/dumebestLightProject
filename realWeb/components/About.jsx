@@ -36,7 +36,6 @@ const About = () => {
           <Image src={AboutImg} className='rounded-xl' alt='/' />
         </div>
       </div>
-      
     </div>
   );
 };
