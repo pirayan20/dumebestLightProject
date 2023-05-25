@@ -498,6 +498,7 @@ void checkState(void){
 			//HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);//
 
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12,SET);
+			HAL_Delay(1000);
 		}
 		else{
 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10,RESET);
