@@ -135,6 +135,15 @@ void loop() {
       Serial.println("FAILED");
       Serial.println("REASON: " + fbdo.errorReason());
     }
+    if (Firebase.RTDB.setDouble(&fbdo, "/test/humid", h )) {
+      Serial.println("PASSED");
+      Serial.println("PATH: " + fbdo.dataPath());
+      Serial.println("TYPE: " + fbdo.dataType());
+    }
+    else {
+      Serial.println("FAILED");
+      Serial.println("REASON: " + fbdo.errorReason());
+    }
 
     
   //com
